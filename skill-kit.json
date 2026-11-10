@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "scalepad-qbr",
+  "name": "ScalePad QBR",
+  "version": "1.0.0",
+  "entryPoints": [
+    "qbr"
+  ],
+  "skills": [
+    { "command": "qbr", "path": "skills/qbr.md" },
+    { "command": "qbr-wayfinder", "path": "skills/qbr-wayfinder.md" },
+    { "command": "qbr-grill", "path": "skills/qbr-grill.md" },
+    { "command": "qbr-prep", "path": "skills/qbr-prep.md" },
+    { "command": "connected-systems-review", "path": "skills/connected-systems-review.md" },
+    { "command": "psa-evidence", "path": "skills/psa-evidence.md" },
+    { "command": "rmm-evidence", "path": "skills/rmm-evidence.md" },
+    { "command": "m365-evidence", "path": "skills/m365-evidence.md" },
+    { "command": "saas-evidence", "path": "skills/saas-evidence.md" },
+    { "command": "client-context-review", "path": "skills/client-context-review.md" },
+    { "command": "roadmap-review", "path": "skills/roadmap-review.md" },
+    { "command": "service-review", "path": "skills/service-review.md" },
+    { "command": "security-review", "path": "skills/security-review.md" },
+    { "command": "technology-review", "path": "skills/technology-review.md" },
+    { "command": "commercial-review", "path": "skills/commercial-review.md" },
+    { "command": "qbr-story", "path": "skills/qbr-story.md" },
+    { "command": "qbr-follow-up", "path": "skills/qbr-follow-up.md" },
+    { "command": "qbr-apply", "path": "skills/qbr-apply.md" }
+  ]
+}

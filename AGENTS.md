@@ -5,6 +5,8 @@ This repository contains portable, single-file skills for third-party agents usi
 ## Repository map
 
 - `README.md` — user-facing installation, routing, and safety guide.
+- `INSTALL.md` — operational GitHub import, manual installation, verification, and update guide.
+- `skill-kit.json` — authoritative kit identity, version, entry points, and exact install list.
 - `skills/*.md` — standalone runtime skills uploaded to the agent platform.
 - `scripts/validate-skills.py` — dependency-free structural validation.
 
@@ -38,7 +40,11 @@ When a skill composes another skill:
 
 Use the shared variables and specialist evidence envelope documented in `README.md`. When adding or renaming a skill, update the catalog, workflow, cross-references, and examples there.
 
+Keep `skill-kit.json` bidirectionally complete: every listed path must exist and every `skills/*.md` file must be listed. Commands and paths are unique; commands match the filename and frontmatter name; entry points name listed commands. Keep manifest paths canonical, relative, directly under `skills/`, and free of symlinks. The manifest does not duplicate skill descriptions or instructions.
+
 Keep the README's host guidance capability-based and portable. Document exact vendor paths or invocation syntax only when verified against that host's current contract; do not make a particular agent platform a hidden dependency.
+
+Keep `INSTALL.md` operational and host-neutral. It may explain verified capability patterns and the commit-pinned import contract, but it must not duplicate skill prompts or imply that installation grants write approval.
 
 ## ScalePad MCP rules
 
@@ -76,7 +82,7 @@ When adding another source adapter, wire it only to domain skills that can legit
 
 ## Releases
 
-Version the kit as a whole in `README.md`; do not add versions or dates to individual skills.
+Version the kit as a whole in `skill-kit.json`; keep the README release row and changelog aligned. Do not add versions or dates to individual skills.
 
 - **Patch:** compatible wording, methodology, safety, or bug corrections.
 - **Minor:** a new skill or backward-compatible composition/output capability.

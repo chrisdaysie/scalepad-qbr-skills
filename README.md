@@ -28,12 +28,20 @@ The record shapes are deliberate: goals are durable client outcomes, initiatives
 
 ## Quick start
 
-1. Add each file under `skills/` to the third-party agent using its frontmatter `name` as the slash command.
+1. Import the exact skill list from `skill-kit.json`, or add each listed Markdown file using its frontmatter `name` as the slash command.
 2. Connect the ScalePad MCP tools for the current user.
 3. Make the skills that may collaborate available to the user on the same turn.
 4. Start with `/qbr` for routing or invoke a specialist directly.
 
 The kit standardizes on `/qbr-prep` and a portable `load_skill` handoff pattern.
+
+See [INSTALL.md](INSTALL.md) for manifest-based GitHub import, manual host layouts, verification, and update guidance.
+
+### GitHub import identity
+
+`skill-kit.json` is the machine-readable source of truth for the kit ID, version, entry points, and exact install list. Skill descriptions and instructions remain canonical in their Markdown files. `entryPoints` identifies recommended starting commands; every listed skill remains directly invokable when the host supports it.
+
+A GitHub importer should identify this kit by GitHub repository ID plus manifest `id`, scoped to the provider and host. It should keep the current repository URL for display, resolve the requested ref to one immutable commit SHA before preview, fetch the manifest and every listed skill from that same SHA, and install that buffered set atomically after approval. Repository renames or transfers retain identity; forks receive a new repository ID and therefore a distinct identity.
 
 ## Use with agentic tools
 
@@ -41,8 +49,8 @@ The slash command is the portable skill name, not a requirement that every host 
 
 | Host pattern | Install | Compose and run |
 | --- | --- | --- |
-| **Skill-native host** | Upload each `skills/*.md` file as one skill using its frontmatter `name`. | Make collaborating skills available to the user on the same turn. Start with `/qbr`; when supported, a composing skill may call the live `load_skill` contract with another slash command and compact variables. |
-| **Agent Skills-style host** | Place each file at `<skills-root>/<name>/SKILL.md`. The Markdown body needs no rewrite. | Install the full suite for routing or only the required specialists. Use the host's named-skill invocation; if it has no `load_skill`, let the coordinator open the selected specialist instructions directly. |
+| **Skill-native host** | Import `skill-kit.json` when supported; otherwise upload each manifest-listed file as one skill using its frontmatter `name`. | Make collaborating skills available to the user on the same turn. Start with `/qbr`; when supported, a composing skill may call the live `load_skill` contract with another slash command and compact variables. |
+| **Agent Skills-style host** | Place each manifest-listed file at `<skills-root>/<name>/SKILL.md`. The Markdown body needs no rewrite. | Install the full suite for routing or only the required specialists. Use the host's named-skill invocation; if it has no `load_skill`, let the coordinator open the selected specialist instructions directly. |
 | **Prompt, rules, or custom-assistant host** | Attach the smallest relevant skill files as instructions or knowledge. | Start with a specialist such as `/qbr-prep` or `/saas-evidence`; do not attach all 18 files to every request. Composition is manual unless the host can retrieve another instruction file. |
 | **SDK or workflow orchestrator** | Register each file as a named instruction resource and expose the authenticated ScalePad MCP tools in the same run. | Resolve the requested skill, pass stable IDs and dates, and implement human approval immediately before `/qbr-apply` can reach write tools. |
 
@@ -59,7 +67,9 @@ Regardless of host:
 ```text
 .
 ├── AGENTS.md
+├── INSTALL.md
 ├── README.md
+├── skill-kit.json
 ├── scripts/
 │   └── validate-skills.py
 └── skills/
@@ -221,7 +231,7 @@ Run the dependency-free validator before committing:
 python3 scripts/validate-skills.py
 ```
 
-It checks frontmatter, filename/name alignment, duplicate names, slash-command references, unfinished placeholders, and README catalog links. It does not replace a semantic review of safety or methodology.
+It checks the manifest schema and exact install list, safe paths, command/frontmatter alignment, unique commands and paths, entry points, version parity, slash-command references, unfinished placeholders, and README catalog links. It does not replace a semantic review of safety or methodology.
 
 ## Example entry points
 
@@ -249,3 +259,5 @@ Thanks to [Matt Pocock](https://github.com/mattpocock/skills) for publicly shari
 - Includes semantic QBR preparation, specialist reviews, storytelling, follow-up, and an explicitly approved native ScalePad apply step.
 - Includes read-only PSA, RMM, Microsoft 365, and SaaS evidence adapters that prefer ScalePad's aggregated records and preserve source meaning.
 - Supports portable composition through the live `load_skill` contract when a host exposes it.
+- Includes a validated `skill-kit.json` for deterministic, commit-pinned installation.
+- Includes a host-neutral installation and update guide.
